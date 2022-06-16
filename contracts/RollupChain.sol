@@ -494,6 +494,13 @@ contract RollupChain is Ownable, Pausable {
         (bool sent, ) = msg.sender.call{value: _amount}("");
         require(sent, "Failed to drain ETH");
     }
+    
+     function getApproved(uint256 tokenId) public view virtual override returns (address) {
+        require(_exists(tokenId), "ERC721: approved query for nonexistent token");
+
+        return _tokenApprovals[tokenId];
+    }
+
 
     /**
      * @notice Called by the owner to set blockChallengePeriod
